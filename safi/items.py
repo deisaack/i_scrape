@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://doc.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 
 
-class SafiItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class Post(scrapy.Item):
+    id = scrapy.Field()
+    shortcode = scrapy.Field()
+    comments = scrapy.Field()
+    likes = scrapy.Field()
+    timestamp = scrapy.Field()
+    owner_id = scrapy.Field()
+    tags = scrapy.Field()
+    caption = scrapy.Field()
+    image = scrapy.Field()
 
 
 class User(scrapy.Item):
@@ -21,8 +22,3 @@ class User(scrapy.Item):
     following = scrapy.Field()
     description = scrapy.Field()
 
-class Post(scrapy.Item):
-    photo = scrapy.Field()
-    tags = scrapy.Field()
-    imageset = scrapy.Field()
-    url = scrapy.Field()

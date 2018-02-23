@@ -26,8 +26,9 @@ SPLASH_URL = 'http://127.0.0.1:8050'
 
 
 ITEM_PIPELINES = {
-    'safi.pipelines.SafiPipeline': 300,
     'scrapy.pipelines.images.ImagesPipeline': 1,
+    'safi.pipelines.DuplicatesPipeline': 300,
+    'safi.pipelines.JsonWriterPipeline': 400,
 }
 
 # Scrapy settings for safi project
