@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import scrapy
+from newsfeeds.apps.fees.models import Post
+from scrapy_djangoitem import DjangoItem
 
 
-class Post(scrapy.Item):
-    id = scrapy.Field()
-    shortcode = scrapy.Field()
-    comments = scrapy.Field()
-    likes = scrapy.Field()
-    timestamp = scrapy.Field()
-    owner_id = scrapy.Field()
-    tags = scrapy.Field()
-    caption = scrapy.Field()
-    image = scrapy.Field()
+class PostItem(DjangoItem):
+    django_model = Post
 
 
 class User(scrapy.Item):

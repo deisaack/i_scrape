@@ -172,7 +172,7 @@ class InstaBot:
         self.media_on_feed = []
         self.media_by_user = []
         now_time = datetime.datetime.now()
-        log_string = 'Instabot v1.2.0 started at %s:\n' % \
+        log_string = 'Instabot v1.2.0 started at %s:' % \
                      (now_time.strftime("%d.%m.%Y %H:%M"))
         self.login()
 

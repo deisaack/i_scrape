@@ -5,7 +5,7 @@ from scrapy.spiders import CrawlSpider, Rule
 import logging as log
 import json
 import os
-from safi.items import Post
+from safi.items import PostItem
 import datetime
 
 
@@ -14,7 +14,7 @@ class FotiSpider(scrapy.Spider):
     nex_page = 'https://www.instagram.com/graphql/query/?query_hash=298b92c8d7cad703f7565aa892ede943&variables=%7B%22tag_name%22%3A%22{tag}%22%2C%22first%22%3A{first}%2C%22after%22%3A%22{cursor}%22%7D'
     first = 200
 
-    def __init__(self, tag='fashionnairobi', *args, **kwargs):
+    def __init__(self, tag='pawabridge', *args, **kwargs):
         super(FotiSpider, self).__init__(*args, **kwargs)
         self.tag = tag
 
@@ -53,18 +53,20 @@ class FotiSpider(scrapy.Spider):
             yield scrapy.Request(next_page_url, callback=self.parse_next)
 
     def parse_node(self, node):
-        item = Post()
-        item['id'] = node['id']
+        item = PostItem()
+        item['id'] = int(node['id'])
         item['shortcode'] = node['shortcode']
-        item['comments'] = node['edge_media_to_comment']['count']
-        item['likes'] = node['edge_liked_by']['count']
+        item['comments'] = int(node['edge_media_to_comment']['count'])
+        item['likes'] = int(node['edge_liked_by']['count'])
         time_stamp = node['taken_at_timestamp']
         item['timestamp'] = datetime.datetime.fromtimestamp(time_stamp).isoformat()
-        item['owner_id'] = node['owner']['id']
+        item['owner_id'] = int(node['owner']['id'])
         item['image'] = node['display_url']
+        item['tag'] = self.tag
         try: item['caption'] = node['edge_media_to_caption']['edges'][0]['node']['text']
         except: item['caption'] = None
         # item['tags'] = Todo
+        item.save()
         return item
 
     #
